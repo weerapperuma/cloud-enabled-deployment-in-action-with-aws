@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 // API base URLs
-const COURSE_SERVICE_URL = 'http://localhost:8081';
+// const COURSE_SERVICE_URL = 'http://localhost:8081';
 const STUDENT_SERVICE_URL = 'http://localhost:8082';
+const COURSE_SERVICE_URL = 'https://course-service-1065758176077.asia-south1.run.app';
 const MEDIA_SERVICE_URL = 'http://localhost:8083';
 
 // Create axios instances for each service
