@@ -1,52 +1,102 @@
-# Cloud Enabled Deployment In Action with AWS
+# 📚 Course, Student, Media & Frontend
 
-This repository contains four projects:
+This repository contains a microservices-based application developed for the Enterprise Cloud Applications assignment.
+It includes three backend services (Course Service, Student Service, Media Service) built with Spring Boot, and a frontend application that consumes these APIs to perform CRUD operations and demonstrate integration.
 
-- course-service (Spring Boot + MySQL)
-- student-service (Spring Boot + MongoDB)
-- media-service (Spring Boot + Local file storage, can be extended to S3/MinIO)
-- frontend-app (React + TypeScript)
+---
 
-## Backend Services
+## 🚀 Features
+- RESTful CRUD APIs for managing courses,students, and media
+- Built with **Spring Boot** and **Java 17+**
+- Uses **Maven** for dependency management
+- **MySQL** database for persistent storage
+- **Dockerized** for easy deployment
+- Deployed on **Google Cloud Run**
+- Secure connection to **Cloud SQL** using the **Cloud SQL Socket Factory**
+- Frontend built with **React** to interact with backend services
 
-### 1. course-service
-- Entity: Course(id, name, duration)
-- Endpoints:
-  - GET /courses
-  - GET /courses/{id}
-  - POST /courses
-  - DELETE /courses/{id}
-- Default port: 8081
-- Configure MySQL settings
+---
 
-### 2. student-service
-- Document: Student(registrationNumber, fullName, address, contact, email)
-- Endpoints:
-  - GET /students
-  - GET /students/{id}
-  - POST /students
-  - DELETE /students/{id}
-- Default port: 8082
-- Configure MongoDB settings
+## 🛠️ How to Use This Repository
 
-### 3. media-service
-- Resource: files
-- Endpoints:
-  - POST /files (multipart/form-data: file)
-  - GET /files (list)
-  - GET /files/{id} (fetch)
-  - DELETE /files/{id} (delete)
-- Default port: 8083
-- Uses local disk storage at `./data/media` by default (override with env var `MEDIA_STORAGE_DIR`).
+### 1. Clone the repository
+```bash
+git clone https://github.com/weerapperuma/cloud-enabled-deployment-in-action-with-aws.git
+cd cloud-enabled-deployment-in-action-with-aws
+```
 
-## Frontend (frontend-app)
-- React + TypeScript + MUI + Axios + Vite app with 3 sections: Courses, Students, Media
-- Scripts:
-  - npm run dev (Vite dev server)
-  - npm run build (TypeScript build + Vite build)
-  - npm run preview (Preview built app)
+### 2. Backend – Run locally
+Make sure you have **Java 17+** and **Maven** installed.
 
-## Build
+```bash
+mvn clean package -DskipTests
+java -jar target/course-service-1.0.0.jar
+```
 
-- Backend: run `mvn -q -e -DskipTests package` at repo root to build services.
-- Frontend: run `npm install` then `npm run dev` inside `frontend-app`.
+The service will be available at:  
+👉 `http://localhost:8080/api/courses`
+
+---
+
+### 3. Backend – Run with Docker
+Build and run the Docker image:
+
+```bash
+docker build -t course-service .
+docker run -p 8080:8080 course-service
+```
+
+---
+
+### 4. Backend – Deploy to Google Cloud Run
+```bash
+gcloud builds submit --tag gcr.io/<project-id>/course-service
+gcloud run deploy course-service \
+  --image=gcr.io/<project-id>/course-service \
+  --region=asia-south1 \
+  --add-cloudsql-instances=<project-id>:asia-south1:eca-mysql \
+  --set-env-vars CLOUD_SQL_CONNECTION_NAME=<project-id>:asia-south1:eca-mysql,DB_USER=eca_user,DB_PASSWORD=MySql123!
+```
+
+---
+
+### 5. Frontend – Run locally
+Update your frontend `.env` or config file with the deployed Cloud Run URL:
+
+```
+REACT_APP_COURSE_SERVICE_URL=https://course-service-xxxxxx-as.a.run.app
+```
+
+Then start the frontend:
+```bash
+npm install
+npm run dev
+```
+
+---
+
+### 6. Database
+- Database: `eca_courses`
+- User: `eca_user`
+- Connection configured in `application-gcp.properties`
+
+---
+
+## 🎥 Video Demonstration
+👉 [Watch the demo video here](https://drive.google.com/file/d/1a48DksMv64mDFH_AzX9ifqEwuMFd3Ry3/view?usp=drive_link)
+
+---
+
+---
+
+## 📜 License
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 👨‍💻 Author
+- Name: *Sahiru Deshan (2301682048)*
+- Course: *Enterprise Cloud Applications*
+- Assignment: *Microservices Deployment with GCP*
+
+---
