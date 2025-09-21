@@ -96,6 +96,8 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 👨‍💻 Author
 - Name: *Sahiru Deshan (2301682048)*
+- email: *weerapperumasahiru@gmail.com*
+- contact: *0784320108*
 - Course: *Enterprise Cloud Applications*
 - Assignment: *Microservices Deployment with GCP*
 
